@@ -22,8 +22,8 @@ services:
     image: blog_image:latest
     container_name: blog-project
     environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_PW}
-      MYSQL_PASSWORD: ${NO_ROOT_PW}
+      ROOT_PW: ${ROOT_PW}
+      NO_ROOT_PW: ${NO_ROOT_PW}
     ports:
       - "8080:8080"
     networks:
