@@ -1,6 +1,7 @@
 version: '3.9'
 
 services:
+
   mysql:
     image: mysql:latest
     container_name: blog-mysql
@@ -11,6 +12,28 @@ services:
       MYSQL_PASSWORD: ${NO_ROOT_PW}
     ports:
       - "3306:3306"
+    networks:
+      - my_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always
+
+  blog_app:
+    image: blog_image:latest
+    container_name: blog-project
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PW}
+      MYSQL_PASSWORD: ${NO_ROOT_PW}
+    ports:
+      - "8080:8080"
+    networks:
+      - my_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    depends_on:
+      - mysql
+
+networks:
+  my_network:
+    driver: bridge
