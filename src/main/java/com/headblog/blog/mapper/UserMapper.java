@@ -2,6 +2,7 @@ package com.headblog.blog.mapper;
 
 import com.headblog.blog.domain.User;
 import com.headblog.blog.dto.CreateUserDto;
+import com.headblog.blog.dto.EditUserDto;
 import com.headblog.blog.dto.ResponseUserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ public class UserMapper {
 
     public User mapToUser(CreateUserDto createUserDto){
         return modelMapper.map(createUserDto, User.class);
+    }
+
+    public void patchUser(User user, EditUserDto createUserDto){
+        modelMapper.map(createUserDto, user);
     }
 
     public ResponseUserDto mapToResponseUserDto(User user){
