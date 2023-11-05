@@ -1,38 +1,18 @@
 version: '3.9'
 
 services:
-
-  mysql:
+  blog-mysql:
     image: mysql:latest
     container_name: blog-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_PW}
-      MYSQL_DATABASE: blog-mysql
-      MYSQL_USER: no_root
-      MYSQL_PASSWORD: ${NO_ROOT_PW}
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: blog
+      MYSQL_USER: flywayuser
+      MYSQL_PASSWORD: flywaypw
     ports:
       - "3306:3306"
-    networks:
-      - my_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: always
-
-  blog_app:
-    image: blog_image:latest
-    container_name: blog-project
-    environment:
-      ROOT_PW: ${ROOT_PW}
-      NO_ROOT_PW: ${NO_ROOT_PW}
-    ports:
-      - "8080:8080"
-    networks:
-      - my_network
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    restart: always
-    depends_on:
-      - mysql
 
 networks:
   my_network:

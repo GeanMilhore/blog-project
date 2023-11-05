@@ -1,6 +1,6 @@
 package com.headblog.blog.controller;
 
-import com.headblog.blog.domain.User;
+import com.headblog.blog.domain.user.User;
 import com.headblog.blog.dto.CreateUserDto;
 import com.headblog.blog.dto.EditUserDto;
 import com.headblog.blog.dto.ResponseUserDto;
@@ -30,7 +30,7 @@ public class userController {
         return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ResponseUserDto> createUser(@RequestBody @Valid CreateUserDto userDto){
         ResponseUserDto responseDto = userService.createUser(userDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
