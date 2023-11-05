@@ -1,6 +1,6 @@
 package com.headblog.blog.mapper;
 
-import com.headblog.blog.domain.User;
+import com.headblog.blog.domain.user.User;
 import com.headblog.blog.dto.CreateUserDto;
 import com.headblog.blog.dto.EditUserDto;
 import com.headblog.blog.dto.ResponseUserDto;

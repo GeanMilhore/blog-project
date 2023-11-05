@@ -1,7 +1,7 @@
 package com.headblog.blog.service;
 
-import com.headblog.blog.domain.Status;
-import com.headblog.blog.domain.User;
+import com.headblog.blog.domain.user.User;
+import com.headblog.blog.domain.user.UserStatus;
 import com.headblog.blog.dto.CreateUserDto;
 import com.headblog.blog.dto.EditUserDto;
 import com.headblog.blog.dto.ResponseUserDto;
@@ -22,6 +22,9 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private ConfirmationTokenService confirmationTokenService;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Autowired
@@ -29,9 +32,11 @@ public class UserService {
 
     public ResponseUserDto createUser(CreateUserDto userDto){
         User toBeSaved = userMapper.mapToUser(userDto);
-        toBeSaved.setStatus(Status.ACTIVE);
+        toBeSaved.setStatus(UserStatus.INACTIVE);
         toBeSaved.setPassword(bcrypt.encode(userDto.getPassword()));
         User savedUser = userRepository.save(toBeSaved);
+
+        confirmationTokenService.sendUserRegistryToken(savedUser);
         return userMapper.mapToResponseUserDto(savedUser);
     }
 
@@ -43,7 +48,8 @@ public class UserService {
 
     public void deleteUser(Long id) {
         User userFound = findUserById(id);
-        userRepository.delete(userFound);
+        userFound.setStatus(UserStatus.INACTIVE);
+        userRepository.save(userFound);
     }
 
     public User findUserById(Long userId){
