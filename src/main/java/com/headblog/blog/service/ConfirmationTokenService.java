@@ -44,7 +44,7 @@ public class ConfirmationTokenService {
             message.setFrom(mailFrom);
             message.setTo(confirmationToken.getUser().getEmail());
             message.setSubject("Click in the link bellow to confirm your email and start using your blog!");
-            message.setText("<a>localhost:8080/user/validateUserRegistry?token=" + confirmationToken.getToken()+"</a>");
+            message.setText("<a>localhost:8080/auth/validateUserRegistry?token=" + confirmationToken.getToken()+"</a>");
             emailSender.send(message);
 
             confirmationToken.setStatusEmail(StatusEmail.SENT);
