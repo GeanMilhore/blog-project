@@ -48,7 +48,8 @@ public class UserService {
 
     public void deleteUser(Long id) {
         User userFound = findUserById(id);
-        userRepository.delete(userFound);
+        userFound.setStatus(UserStatus.INACTIVE);
+        userRepository.save(userFound);
     }
 
     public User findUserById(Long userId){
