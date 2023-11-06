@@ -29,7 +29,7 @@ public class JwtConfiguration {
                     .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(
-                                    "/user/create", "/auth/login").permitAll()
+                                    "/user/create", "/auth/login", "/auth/validateUserRegistry").permitAll()
                             .anyRequest().authenticated())
                     .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                     .build();
