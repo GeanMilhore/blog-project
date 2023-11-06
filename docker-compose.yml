@@ -1,16 +1,17 @@
 version: '3.9'
 
 services:
-  blog-mysql:
-    image: mysql:latest
-    container_name: blog-mysql
+  blog-postgres:
+    image: postgres:latest
+    container_name: blog-postgres
     environment:
-      MYSQL_ROOT_PASSWORD: rootpw
-      MYSQL_DATABASE: blog
-      MYSQL_USER: flywayuser
-      MYSQL_PASSWORD: flywaypw
+      POSTGRES_USER: norootuser
+      POSTGRES_PASSWORD: norootpw
+      POSTGRES_DB: blog
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    command:
+      - docker-entrypoint.sh -c 'shared_buffers=256MB' -c 'max_connections=200'
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
