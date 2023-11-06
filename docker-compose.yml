@@ -5,8 +5,8 @@ services:
     image: postgres:latest
     container_name: blog-postgres
     environment:
-      POSTGRES_USER: norootuser
-      POSTGRES_PASSWORD: norootpw
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: blog
     ports:
       - "5432:5432"

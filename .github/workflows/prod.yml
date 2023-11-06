@@ -37,4 +37,4 @@ jobs:
         run: docker pull geanmilhore/blog:latest
 
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name deploy_blog geanmilhore/blog
+        run: docker run -d -p 8080:8080 -e DATABASE_USER=${{secrets.DATABASE_USER}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name deploy_blog geanmilhore/blog
