@@ -40,4 +40,4 @@ jobs:
         run: docker rm -f deploy_blog
 
       - name: Run docker container
-        run: docker run -d -p 8080:8080 -e DATABASE_USER=${{secrets.DATABASE_USER}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name deploy_blog geanmilhore/blog
+        run: docker run -d -p 8080:8080 -e DATABASE_USER=${{secrets.DATABASE_USER}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} -e GOOGLE_SMTP_USERNAME=${{secrets.GOOGLE_SMTP_USERNAME}} -e GOOGLE_SMTP_PW=${{secrets.GOOGLE_SMTP_PW}} -e SECRET_KEY_JWT=${{secrets.SECRET_KEY_JWT}} --name deploy_blog geanmilhore/blog
