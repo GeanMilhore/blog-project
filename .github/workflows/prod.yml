@@ -36,5 +36,8 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull geanmilhore/blog:latest
 
+      - name: Remove last container
+        run: docker rm -f deploy_blog
+
       - name: Run docker container
         run: docker run -d -p 8080:8080 -e DATABASE_USER=${{secrets.DATABASE_USER}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name deploy_blog geanmilhore/blog
