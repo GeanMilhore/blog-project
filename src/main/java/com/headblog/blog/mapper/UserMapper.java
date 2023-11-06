@@ -21,6 +21,7 @@ public class UserMapper {
     public void patchUser(User user, EditUserDto createUserDto){
         modelMapper.map(createUserDto, user);
     }
+
     public ResponseUserDto mapToResponseUserDto(User user){
         return modelMapper.map(user, ResponseUserDto.class);
     }
