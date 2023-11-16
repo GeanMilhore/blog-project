@@ -5,7 +5,6 @@ import com.headblog.blog.domain.token.ConfirmationToken;
 import com.headblog.blog.domain.user.User;
 import com.headblog.blog.domain.user.UserStatus;
 import com.headblog.blog.repository.ConfirmationTokenRepository;
-import com.headblog.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -25,9 +24,6 @@ public class ConfirmationTokenService {
     ConfirmationTokenRepository confirmationTokenRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     private JavaMailSender emailSender;
 
     @Value("${minutes-to-expire-token}")
@@ -35,6 +31,9 @@ public class ConfirmationTokenService {
 
     @Value("${confirmation-mail-from}")
     private String mailFrom;
+
+    @Value("${site-url}")
+    private String siteUrl;
 
     @Transactional
     public ConfirmationToken sendUserRegistryToken(User user) {
@@ -44,7 +43,7 @@ public class ConfirmationTokenService {
             message.setFrom(mailFrom);
             message.setTo(confirmationToken.getUser().getEmail());
             message.setSubject("Click in the link bellow to confirm your email and start using your blog!");
-            message.setText("<a>localhost:8080/auth/validateUserRegistry?token=" + confirmationToken.getToken()+"</a>");
+            message.setText(siteUrl + "/validate-registry/" + confirmationToken.getToken());
             emailSender.send(message);
 
             confirmationToken.setStatusEmail(StatusEmail.SENT);
