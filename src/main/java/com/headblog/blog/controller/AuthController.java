@@ -4,10 +4,10 @@ package com.headblog.blog.controller;
 import com.headblog.blog.domain.user.User;
 import com.headblog.blog.dto.AuthenticationDto;
 import com.headblog.blog.dto.LoginResponseDto;
+import com.headblog.blog.dto.TokenDto;
 import com.headblog.blog.service.ConfirmationTokenService;
 import com.headblog.blog.service.TokenService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,9 +36,9 @@ public class AuthController {
         return ResponseEntity.ok(new LoginResponseDto(token));
     }
 
-    @GetMapping("/validateUserRegistry")
-    public String validateUserRegistry(@PathParam("token") String token){
-        return confirmationTokenService.validateUserRegistry(token);
+    @PostMapping("/validateUserRegistry")
+    public String validateUserRegistry(@RequestBody @Valid TokenDto tokenDto){
+        return confirmationTokenService.validateUserRegistry(tokenDto.token());
     }
 
 }
